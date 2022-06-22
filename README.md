@@ -34,7 +34,7 @@ Main technologies used:
 -  Now PostGreSQL is installed.
 -  For this demo to work, I have set some dummy data in PostGreSQL that we can see with the frontend.
 -  But you don't need to do it yourself, that's the benefit of using `Sequelize Migrations`, I could code everything, from the database creation to the setting of data in it's tables,
--  You only need to excecute `npm run db:reset` in the project directory, it will automatically:
+-  You only need to excecute `npm run db:reset` (don't do it yet) in the project directory, it will automatically:
 
    -  Drop any previous `MadVikingGamesVideos` database in PostGreSQL
    -  Create a new database `MadVikingGamesVideos`
@@ -56,7 +56,28 @@ Main technologies used:
 
    In fact, I guess that you don't need nodemon
 
-   -  So, excecute `npm run db:reset`
+   -  You need to setup the database:
+   -  Update the `db/config/config.json` file like:
+
+      ```jsx
+         {
+          "development": {
+              "username": "postgres",
+              "password": "1234",
+              "database": "MadVikingGamesVideos",
+              "host": "127.0.0.1",
+              "dialect": "postgres"
+          },
+          "test": {
+              "username": "root",
+           ...
+
+      }
+      ```
+
+      As the database is local, it is harmless to show the password to the public
+
+   -  Excecute `npm run db:reset`
 
 -  Now you can start the server `npm start` and wait for the message:
 
