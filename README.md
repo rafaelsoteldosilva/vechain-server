@@ -39,6 +39,9 @@ Main technologies used:
    -  Drop any previous `MadVikingGamesVideos` database in PostGreSQL
    -  Create a new database `MadVikingGamesVideos`
    -  Create the dummy data in the database tables
+
+   ***
+
    -  The command db:reset is located in package.json, under `scripts`:
 
    ```jsx
@@ -428,11 +431,29 @@ In this case, as the route for getAllVideos is just `/`, it has to be placed las
 This file is used by sequelize to locate the db definitions files, for example, I created an script in package.json called db:reset, which resets the entireb database, or creates it in case it doesn't exist in the postgres:
 
 ```jsx
+const path = require("path");
+module.exports = {
+   config: path.resolve("./src/db/config", "config.json"),
+   "models-path": path.resolve("./src/db/models"),
+   "seeders-path": path.resolve("./src/db/seeders"),
+   "migrations-path": path.resolve("./src/db/migrations"),
+};
+```
+
+This file is important in order for the migration to work, because with it, the models, seeders and migration files ca be located
+
+## **package.json**
+
+Among other things, it has the command db:reset:
+
+```jsx
 // package.json
+...
 "scripts": {
    "start": "nodemon server.js",
    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
 },
+...
 ```
 
 Without this .sequelizerc this script wouldn't work
