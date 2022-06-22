@@ -80,8 +80,8 @@ The src folder contain most of the logic for the api, it is composed of:
 -  src/db/migrations, these are script files that are used to create the DB
 -  src/db/models, these are the files that contain the entities definitions
 -  src/db/seeds, these are the files that contain the seed data, to fill the DB with initial data
--  src/routes, these files contain the routes to all the endpoint of the api
 -  src/endpoints folder, these files contain all the final endpoints of the api
+-  src/routes, these files contain the routes to all the endpoint of the api
 -  .sequelizerc
 -  server.js
 
