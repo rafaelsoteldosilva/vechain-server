@@ -48,6 +48,8 @@ Main technologies used:
    },
    ```
 
+   -  So, excecute `npm run db:reset`
+
    As you can see, it's still using nodemon, you can modify it and leave it as:
 
    ```jsx
