@@ -1,0 +1,31 @@
+{
+  "name": "vechain-back",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./src/server.js",
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
+    "pg": "^8.7.1",
+    "sequelize": "^6.12.0-alpha.1",
+    "sequelize-cli": "^6.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafaelsoteldosilva/vechain-back.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rafaelsoteldosilva/vechain-back/issues"
+  },
+  "homepage": "https://github.com/rafaelsoteldosilva/vechain-back#readme",
+  "description": ""
+}
