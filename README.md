@@ -34,7 +34,7 @@ Main technologies used:
 -  Now PostGreSQL is installed.
 -  For this demo to work, I have set some dummy data in PostGreSQL that we can see with the frontend.
 -  But you don't need to do it yourself, that's the benefit of using `Sequelize Migrations`, I could code everything, from the database creation to the setting of data in it's tables,
--  You only need to excecute `npm run db:reset` in the project directory, it will:
+-  You only need to excecute `npm run db:reset` in the project directory, it will automatically:
 
    -  Drop any previous `MadVikingGamesVideos` database in PostGreSQL
    -  Create a new database `MadVikingGamesVideos`
