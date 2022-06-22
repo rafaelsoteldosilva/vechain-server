@@ -48,8 +48,6 @@ Main technologies used:
    },
    ```
 
-   -  So, excecute `npm run db:reset`
-
    As you can see, it's still using nodemon, you can modify it and leave it as:
 
    ```jsx
@@ -57,6 +55,8 @@ Main technologies used:
    ```
 
    In fact, I guess that you don't need nodemon
+
+   -  So, excecute `npm run db:reset`
 
 -  Now you can start the server `npm start` and wait for the message:
 
