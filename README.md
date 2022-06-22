@@ -428,7 +428,7 @@ In this case, as the route for getAllVideos is just `/`, it has to be placed las
 
 ## <ins>.sequelizerc</ins>
 
-This file is used by sequelize to locate the db definitions files, for example, I created an script in package.json called db:reset, which resets the entireb database, or creates it in case it doesn't exist in the postgres:
+This file is used by sequelize to locate the db definitions files:
 
 ```jsx
 const path = require("path");
@@ -442,9 +442,11 @@ module.exports = {
 
 This file is important in order for the migration to work, because with it, the models, seeders and migration files ca be located
 
+Without this .sequelizerc this script wouldn't work
+
 ## **package.json**
 
-Among other things, it has the command db:reset:
+I created an script in package.json called db:reset, which resets the entireb database, or creates it in case it doesn't exist in the postgres:
 
 ```jsx
 // package.json
@@ -455,8 +457,6 @@ Among other things, it has the command db:reset:
 },
 ...
 ```
-
-Without this .sequelizerc this script wouldn't work
 
 ## <ins>server.js</ins>
 
