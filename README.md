@@ -497,7 +497,7 @@ Routes as middlewares
 -  app.use("/api/v1/videos", videoRoutes);
 -  app.use("/api/v1/videoCategories", videoCategoryRoutes);
 
-This way, the request have to be written the following way, for example:
+This way, the requests have to be written the following way, for example:
 
 ```jsx
 // vechain-front/src/redux/actions/categoriesActions.js
