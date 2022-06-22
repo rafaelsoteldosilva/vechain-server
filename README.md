@@ -75,13 +75,13 @@ The src folder contain most of the logic for the api, it is composed of:
 </p>
 
 -  src folder, it contains most of the api logic
--  src/controllers folder, these files contain all the endpoints of the api
 -  src/db folder, everything that's related to the DB definition
 -  src/db/config/config.json, configuration file for the DB, it's in the .gitignore
 -  src/db/migrations, these are script files that are used to create the DB
 -  src/db/models, these are the files that contain the entities definitions
 -  src/db/seeds, these are the files that contain the seed data, to fill the DB with initial data
 -  src/routes, these files contain the routes to all the endpoint of the api
+-  src/endpoints folder, these files contain all the final endpoints of the api
 -  .sequelizerc
 -  server.js
 
@@ -95,6 +95,7 @@ The src folder contain most of the logic for the api, it is composed of:
 For instance, for the video table, I excecuted
 
 ```jsx
+// package.json
 npx sequelize-cli model:generate --name User --attributes title:string,origin:string,uploadDate:string,url:string,excerpt:string,videoCategoryId:integer.
 ```
 
@@ -267,18 +268,16 @@ module.exports = (sequelize, DataTypes) => {
 
 Means that each video belongs to one videoCategory, the foreign key will be videoCategoryId, and when a videoCategory is deleted, all the videos that belong to it are deleted too.
 
-## <ins>**src/controllers**</ins>
+## <ins>**src/endpoints**</ins>
 
-Define the endpoints of the api, for example, the videoController would be:
+Define the endpoints of the api, for example, the videoEndpoints.js would be:
 
 ```jsx
-// src/controllers/videoController.js
+// src/endpoints/videoEndpoints.js
 const { VideoCategory, Video } = require('../db/models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-// get all videos present in the database
-// The code is self explanatory
 const getAllVideos = async (req, res) => {
 	try {
 		const videos = await Video.findAll();
@@ -291,35 +290,16 @@ const getAllVideos = async (req, res) => {
 ...
 ```
 
-There's an important thing to note with the categories, when displaying videos with categoriy breaks, there's an endpont that delivers just that, `getAllVideoCategoriesIncludingVideos`
-
-```jsx
-// src/controllers/videoCategoryController.js
-const getAllVideoCategoriesIncludingVideos = async (req, res) => {
-   try {
-      const videoCategories = await VideoCategory.findAll({
-         include: [{ model: Video }],
-         order: [["viewOrder", "ASC"]], // The order is viewOrder, Ascendent
-      });
-      return res.status(200).json({ videoCategories });
-   } catch (error) {
-      console.log(error.message);
-      return res.status(500).send(error.message);
-   }
-};
-```
-
-As you can see, the order in which they are present is viewOrder
+The order in which they are presented in the frontend is viewOrder
 
 The way the user can modify this value, is with the `vechain-fron/src/redux/actions/categoriesActions.js`, specifically the functions `moveCategoryUp` and `moveCategoryDown`. These functions will execute the endpoints `moveVideoCategoryUpOneLevel` and `moveVideoCategoryDownOneLevel`:
 
 Example:
 
 ```jsx
-// src/controllers/videoCategoryController.js
+// src/endpoints/videoCategoryEndpoints.js
 const moveVideoCategoryUpOneLevel = async (req, res) => {
    let name = req.params.categoryName;
-   console.log("************ moveVideoCategoryUpOneLevel");
 
    const videoCategory = await VideoCategory.findOne({ where: { name } });
 
@@ -355,9 +335,11 @@ const moveVideoCategoryUpOneLevel = async (req, res) => {
 
 These endpoints will update the viewOrder to current value + 1 (down) or to current value - 1 (up)
 
-Another thing to notice is that, in order to get only de categories that have videos, I first issue this endpoint:
+Another thing to notice is that, in order to get only de categories that have videos, I have this endpoint:
 
 ```jsx
+// src/endpoints/videoCategoryEndpoints.js
+...
 const getAllVideoCategoriesIncludingVideos = async (req, res) => {
    try {
       const videoCategories = await VideoCategory.findAll({
@@ -370,9 +352,10 @@ const getAllVideoCategoriesIncludingVideos = async (req, res) => {
       return res.status(500).send(error.message);
    }
 };
+...
 ```
 
-which basically gets all categories with their videos, but I know that some categories will have the array of videos empty, so the frontend has to filter those categories out, in order to get only those categories that have videos.
+Which basically gets all categories with their videos, but I know that some categories will have the array of videos empty, so the frontend has to filter those categories out, in order to get only those categories that have videos.
 
 ```jsx
 // vechain-front/src/redux/actions/categoriesActions.js
@@ -398,19 +381,19 @@ export function getOnlyVideoCategoriesThatHaveVideosWithTheirVideos() {
 
 ## <ins>**src/routes**</ins>
 
-Define the routes for every endpoint, for example, the videoRoutes would be:
+Define the routes for every endpoint, for example, the `videoRoutes` would be:
 
 ```jsx
 // src/routes/videoRoutes.js
-const express = require('express');
-const videoController = require('../controllers/videoController');
+const express = require("express");
+const videoEndpoints = require("../endpoints/videoEndpoints");
 const router = express.Router();
 
+router.route("/title/:id").put(videoEndpoints.updateVideoTitle);
+router.route("/origin/:id").put(videoEndpoints.updateVideoOrigin);
 ...
 
-router.route('/:id').get(videoController.getVideoById).put(videoController.updateVideoTitle);
-
-router.route('/').get(videoController.getAllVideos);
+router.route("/").get(videoEndpoints.getAllVideos);
 
 module.exports = router;
 ```
