@@ -9,6 +9,7 @@ Main technologies used:
 -  Nodejs,
 -  Express,
 -  Sequelize-cli,
+-  Sequelize Migrations,
 -  Postgres
 
 ## **Installation guidelines**
