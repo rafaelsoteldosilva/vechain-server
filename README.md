@@ -442,7 +442,7 @@ module.exports = {
 
 This file is important in order for the migration to work, because with it, the models, seeders and migration files ca be located
 
-Without this .sequelizerc this script wouldn't work
+Without this .sequelizerc the migrations wouldn't work
 
 ## **package.json**
 
