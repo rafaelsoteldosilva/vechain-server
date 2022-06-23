@@ -21,7 +21,7 @@ Main technologies used:
    -  Go to https://www.enterprisedb.com/downloads/postgres-postgresql-downloads in order to download the installer
    -  Run the installer,
    -  Click NEXT and leave the default values,
-   -  When you get to the password, type `1234`, you can use another one if you want,
+   -  When you get to the password, type `1234`, you can use another one if you want, but if you do, you have to set it in the src/db/config/config.js file
       <p align="center">
          <img src="./imagesForReadme/InstallationPostgre4.5.jpg" alt="InstallationPostgre4.5"/>
       </p>
@@ -59,26 +59,7 @@ Main technologies used:
 
    In fact, I guess that you don't need nodemon
 
-   -  You need to setup the database:
-   -  Update the `db/config/config.json` file like:
-
-      ```jsx
-         {
-          "development": {
-              "username": "postgres",
-              "password": "1234",
-              "database": "MadVikingGamesVideos",
-              "host": "127.0.0.1",
-              "dialect": "postgres"
-          },
-          "test": {
-              "username": "root",
-           ...
-
-      }
-      ```
-
-      As the database is local, it is harmless to show the password to the public
+   As the database is local, it is harmless to show the password to the public
 
    -  Excecute `npm run db:reset`
 
@@ -102,7 +83,7 @@ The src folder contain most of the logic for the api, it is composed of:
 
 -  src folder, it contains most of the api logic
 -  src/db folder, everything that's related to the DB definition
--  src/db/config/config.json, configuration file for the DB, it's in the .gitignore
+-  src/db/config/config.json, configuration file for the DB
 -  src/db/migrations, these are script files that are used to create the DB
 -  src/db/models, these are the files that contain the entities definitions
 -  src/db/seeds, these are the files that contain the seed data, to fill the DB with initial data
@@ -293,6 +274,37 @@ module.exports = (sequelize, DataTypes) => {
 ```
 
 Means that each video belongs to one videoCategory, the foreign key will be videoCategoryId, and when a videoCategory is deleted, all the videos that belong to it are deleted too.
+
+## <ins>**The database configuration file**</ins>
+
+-  Here is where the database is configured
+
+```jsx
+// db/config/config.json
+{
+   "development": {
+      "username": "postgres",
+      "password": "1234",
+      "database": "MadVikingGamesVideos",
+      "host": "127.0.0.1",
+      "dialect": "postgres"
+   },
+   "test": {
+      "username": "root",
+   ...
+}
+```
+
+We also set the database name here, and the password, if you used another password, here is where you have to set it
+
+As you can see, here we can set tha sql database we're using, the different dialects we can use are (https://sequelize.org/docs/v6/other-topics/dialect-specific-things/):
+
+-  `mariadb`, for mariaDB
+-  `sqlite3`, for SQL Lite
+-  `postgres`, for PostGreSQL, it's what we're using here,
+-  `mssql`, for MS SQL,
+-  `mysql`, for MySQL,
+-  `snowflake` (experiment)
 
 ## <ins>**src/endpoints**</ins>
 
