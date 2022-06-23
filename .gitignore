@@ -1,7 +1,5 @@
 node_modules/
 
-/src/db/config/config.json
-
 .env
 
 Setting up the back project.docx
