@@ -299,8 +299,8 @@ We also set the database name here, and the password, if you used another passwo
 
 As you can see, here we can set tha sql database we're using, the different dialects we can use are (https://sequelize.org/docs/v6/other-topics/dialect-specific-things/):
 
--  `mariadb`, for mariaDB
--  `sqlite3`, for SQL Lite
+-  `mariadb`, for Maria DB,
+-  `sqlite3`, for SQL Lite,
 -  `postgres`, for PostGreSQL, it's what we're using here,
 -  `mssql`, for MS SQL,
 -  `mysql`, for MySQL,
